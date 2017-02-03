@@ -1,114 +1,108 @@
-  <!DOCTYPE html> 
-  <head> 
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" /> 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
-      <style type="text/css">      
+<!DOCTYPE html> 
+<head> 
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" /> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 
-      body  {
-        -webkit-text-size-adjust:100%;
-         -ms-text-size-adjust:100%;
-         margin: 0 !important;
-         padding: 0 !important;
-      }
+<style type="text/css">      
 
-      /*BEGIN MEDIA ONLY*/
-      @media only screen and (max-width: 480px)  {
-        table {
-          width: 100% !important;
-          text-align: center !important;
-        }
+  body  {
+    -webkit-text-size-adjust:100%;
+     -ms-text-size-adjust:100%;
+     margin: 0 !important;
+     padding: 0 !important;
+  }
 
-        td img {
-          width: 100% !important;       
-          height: auto !important;
-          max-height: none !important;
-          text-align: center!important;
-        }  
+  /*BEGIN MEDIA ONLY*/
+  @media only screen and (max-width: 480px)  {
+    table {
+      width: 100% !important;
+      text-align: center !important;
+    }
 
-        .mobile_content {
-          max-width: 100% !important;
-        }
+    td img {
+      width: 100% !important;       
+      height: auto !important;
+      max-height: none !important;
+      text-align: center!important;
+    }  
 
-        .mobile_content table {
-          width: 100% !important;
-          height: auto !important;
-          max-height: none !important;
-          text-align: center !important;
-          margin: 0 auto !important;
-        }  
-        
-        td.fiftypercent img {
-          width: 100% !important;
-          height: auto !important;
-          max-height: none !important;
-          text-align: center!important;
-        }    
+    .mobile_content {
+      max-width: 100% !important;
+    }
 
-        .mobile_social {
-          width: 120px !important;
-          margin: 0 auto !important;
-          height: auto !important;
-          max-height: none !important;
-          text-align: center !important;
-        }
+    .mobile_content table {
+      width: 100% !important;
+      height: auto !important;
+      max-height: none !important;
+      text-align: center !important;
+      margin: 0 auto !important;
+    }  
+    
+    td.fiftypercent img {
+      width: 100% !important;
+      height: auto !important;
+      max-height: none !important;
+      text-align: center!important;
+    }    
 
-        .mobile_social td {
-          padding: 0 !important;
-          margin: 0 !important;
-          max-width: 30px !important;
-          text-align: center !important;
-        }
+    .mobile_social {
+      width: 120px !important;
+      margin: 0 auto !important;
+      height: auto !important;
+      max-height: none !important;
+      text-align: center !important;
+    }
 
-        .mobile_social img {
-          max-width: 30px !important;
-          height: auto !important;
-          max-height: none !important;
-        }   
+    .mobile_social td {
+      padding: 0 !important;
+      margin: 0 !important;
+      max-width: 30px !important;
+      text-align: center !important;
+    }
 
-        .min_width {
-          min-width: 2px !important;
-          /*max-height: 52px !important;*/
-        }
+    .mobile_social img {
+      max-width: 30px !important;
+      height: auto !important;
+      max-height: none !important;
+    }   
 
-        .min_width img {
-          min-width: 100% !important;
-        }
+    .min_width {
+      min-width: 2px !important;
+      /*max-height: 52px !important;*/
+    }
 
-          } /*END MEDIA ONLY*/
-   
-    </style> 
+    .min_width img {
+      min-width: 100% !important;
+    }/*END MEDIA ONLY*/
 
-    <title>
-    </title> 
-  </head> 
-  <!-- DETERMINES AM/PM TYPE AND DATE FOR UTM VALUES, ETC -->
-  %%[
-  IF FORMAT(Now(), "tt") == "AM" THEN
-  SET @Email_Type = "am"
-  ELSE
-  SET @Email_Type = "pm"
-  ENDIF
+  } 
 
-  SET @date_str = xtshortdate
-  ]%%
+</style> 
+</head> 
 
+<!-- DETERMINES AM/PM TYPE AND DATE FOR UTM VALUES, ETC -->
+<script runat=server language=ampscript>
+%%[
+IF FORMAT(Now(), "tt") == "AM" THEN
+SET @Email_Type = "am"
+ELSE
+SET @Email_Type = "pm"
+ENDIF
 
+SET @date_str = xtshortdate
+]%%
 
-
-  %%[
-  SET @daily_banner_link = Concat(banner_url, '?utm_source=Vintage&utm_medium=Email&utm_campaign=%%jobid%%&utm_content=%%=v(@date_str)=%%.%%_subscriberkey%%.%%=v(@Email_Type)=%%&utm_term=Banner')
-  SET @daily_prefooter_link = Concat(prefooter_url, '?utm_source=Vintage&utm_medium=Email&utm_campaign=%%jobid%%&utm_content=%%=v(@date_str)=%%.%%_subscriberkey%%.%%=v(@Email_Type)=%%&utm_term=Prefooter')
-  SET @URL_Unsubscribe = Concat('https://www.onekingslane.com/my_account/email-preferences?id=',customer_id,'&token=',MD5(emailaddr),'&utm_source=Vintage&utm_medium=Email&utm_campaign=%%jobid%%&utm_content=',@date_str,'.%%_subscriberkey%%.',@Email_Type,'&utm_term=Footer.EmailPreferences')
-  SET @daily_header_link = Concat('https://www.onekingslane.com?utm_source=Vintage&utm_medium=Email&utm_campaign=%%jobid%%&utm_content=',@date_str,'.%%_subscriberkey%%.',@Email_Type,'&utm_term=Header.Logo')
-  SET @daily_header_all_sales_link = Concat('https://www.onekingslane.com?utm_source=Vintage&utm_medium=Email&utm_campaign=%%jobid%%&utm_content=',@date_str,'.%%_subscriberkey%%.',@Email_Type,'&utm_term=Header.AllSales')
-  ]%%
+%%[
+SET @URL_Unsubscribe = Concat('https://www.onekingslane.com/my_account/email-preferences?id=',customer_id,'&token=',MD5(emailaddr),'&utm_source=Vintage&utm_medium=Email&utm_campaign=%%jobid%%&utm_content=',@date_str,'.%%_subscriberkey%%.',@Email_Type,'&utm_term=Footer.EmailPreferences')
+]%%
+</script>
 
 
 <body style="margin: 0px; padding:0px; -webkit-text-size-adjust:none;" yahoo="fix"> 
   <table width="655"  cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto;
   " class="mobile_content">
     <!-- START HEADER -->
-    <table width="653"  cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto;" class="mobile_content">
+    <table width="650"  cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto;" class="mobile_content">
       <!-- BEGIN LOGO --> 
       <tr> 
         <td colspan="5" width="100%" style="text-align:center;"> 
@@ -209,7 +203,7 @@
     <!-- -->
 
     <!-- BEGIN EMAIL BODY -->
-    <table width="653" cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto;" class="mobile_content">
+    <table width="650" cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto;" class="mobile_content">
 
       <!-- BEGIN PRODUCT IMAGE 1-->
       <tr>
@@ -339,10 +333,11 @@
         </td>
       </tr>
       <!-- END IMAGE 10: CTA_2 --> 
+    </table>
+    <!-- END EMAIL BODY -->
 
-
-
-      <!-- footer -->
+    <!-- BEGIN FOOTER -->
+    <table width="650" cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto;" class="mobile_content">
       <tr> 
         <td align="center"> 
           <table cellpadding="0" cellspacing="0" border="0" align="center"> 
@@ -350,6 +345,7 @@
               <td align="center"> 
               </td> 
             </tr> 
+
             <tr> 
               <td align="center"> 
                 <table cellpadding="0" cellspacing="0" border="0" align="center"> 
@@ -358,34 +354,57 @@
                       <br />  
                       <br> 
                       <br>
+
                         <a href="https://www.onekingslane.com/privacy?utm_source=Vintage&utm_medium=Launch&utm_campaign=%%=v(jobid)=%%&utm_content=%%=v(@date_str)=%%.%%_subscriberkey%%.%%=v(@Email_Type)=%%&utm_term=Footer.PrivacyPolicy" style="text-decoration:none; color: #999; font-size: 10px;">
                           PRIVACY POLICY
                         </a>
+
                           &nbsp;&nbsp;|&nbsp;&nbsp;
+
                         <a href="https://www.onekingslane.com/contact-us?utm_source=Vintage&utm_medium=Launch&utm_campaign=%%=v(jobid)=%%&utm_content=%%=v(@date_str)=%%.%%_subscriberkey%%.%%=v(@Email_Type)=%%&utm_term=Footer.ContactUs"  style="text-decoration:none; color: #999; font-size: 10px;">
                           CONTACT US
                         </a>
+
                           &nbsp;&nbsp;|&nbsp;&nbsp;
+
                         <a href="https://www.onekingslane.com/corporate/careers/?utm_source=Vintage&utm_medium=Launch&utm_campaign=%%=v(jobid)=%%&utm_content=%%=v(@date_str)=%%.%%_subscriberkey%%.%%=v(@Email_Type)=%%&utm_term=Footer.Hiring"  style="text-decoration:none; color: #999; font-size: 10px;">
                           HIRING
                         </a>
+
                           &nbsp;&nbsp;|&nbsp;&nbsp;
+
                         <a href="%%=RedirectTo(v(@URL_Unsubscribe))=%%"  style="text-decoration:none; color: #999; font-size: 10px;">
                           UNSUBSCRIBE
                         </a>
                     </td> 
                   </tr> 
+
                   <tr> 
                     <td align="center"> 
                       <table cellpadding="0" cellspacing="0" border="0" align="center" style="width: 110px; margin: 0 auto;" class="mobile_social"> 
                         <tr> 
-                          <td style="padding-right:3px; padding-top:10px;"><a href="http://www.facebook.com/OneKingsLane" border="0"><img src="https://okl.scene7.com/is/image/OKL/Facebook?fmt=png" alt="OKL Facebook" border="0"  /></a> 
+                          <td style="padding-right:3px; padding-top:10px;">
+                            <a href="http://www.facebook.com/OneKingsLane" border="0">
+                              <img src="https://okl.scene7.com/is/image/OKL/Facebook?fmt=png" alt="OKL Facebook" border="0"  />
+                            </a> 
                           </td> 
-                          <td style="padding-right:5px;padding-top:10px;"><a href="http://instagram.com/onekingslane" border="0"><img src="https://okl.scene7.com/is/image/OKL/Instagram?fmt=png" border="0"  /></a> 
+
+                          <td style="padding-right:5px;padding-top:10px;">
+                            <a href="http://instagram.com/onekingslane" border="0">
+                              <img src="https://okl.scene7.com/is/image/OKL/Instagram?fmt=png" border="0"  />
+                            </a> 
                           </td> 
-                          <td style="padding-right:3px; padding-top:10px;"><a href="http://pinterest.com/onekingslane/" border="0"><img src="https://okl.scene7.com/is/image/OKL/Pinterest?fmt=png" border="0"  /></a> 
+
+                          <td style="padding-right:3px; padding-top:10px;">
+                            <a href="http://pinterest.com/onekingslane/" border="0">
+                              <img src="https://okl.scene7.com/is/image/OKL/Pinterest?fmt=png" border="0"  />
+                            </a> 
                           </td> 
-                          <td style="padding-right:3px; padding-top:10px;"><a href="http://twitter.com/onekingslane" border="0"><img src="https://okl.scene7.com/is/image/OKL/Twitter?fmt=png" alt="OKL Twitter" border="0"  /></a> 
+
+                          <td style="padding-right:3px; padding-top:10px;">
+                            <a href="http://twitter.com/onekingslane" border="0">
+                              <img src="https://okl.scene7.com/is/image/OKL/Twitter?fmt=png" alt="OKL Twitter" border="0"  />
+                            </a> 
                           </td> 
                         </tr> 
                       </table> 
